@@ -4,10 +4,17 @@ provider "aws" {
 
 # Security Group for Ansible instances
 resource "aws_security_group" "ansible_sg" {
-name        = "ansible-security-group"
-description = "Allow SSH access to Ansible instances"
+  name        = "ansible-security-group"
+  description = "Allow SSH access to Ansible instances"
 
   ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_cidr_blocks  # Ensure this is securely defined
+  }
+
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
