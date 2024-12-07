@@ -1,6 +1,13 @@
+provider "aws" {
+  region = var.aws_region
+}
 
+# Security Group for Ansible instances
+resource "aws_security_group" "ansible_sg" {
+name        = "ansible-security-group"
+description = "Allow SSH access to Ansible instances"
 
-  egress {
+  ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
